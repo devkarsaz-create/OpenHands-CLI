@@ -142,6 +142,16 @@ def main() -> None:
             from openhands_cli.mcp.mcp_commands import handle_mcp_command
 
             handle_mcp_command(args)
+        elif args.command == "cloud":
+            # Validate cloud mode requirements
+            if not args.task and not args.file:
+                parser.error(
+                    "cloud subcommand requires either --task or --file to be specified"
+                )
+
+            from openhands_cli.cloud.command import handle_cloud_command
+
+            handle_cloud_command(args)
 
         else:
             # Check if experimental flag is used
